@@ -371,7 +371,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## 📧 Contact
 
 **Project Lead**: Abdul Rasheed  
-**Email**: [your-email@example.com]
+**Email**: [mabdulrasheedtalal@gmail.com]
 
 ---
 
