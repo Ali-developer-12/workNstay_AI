@@ -64,6 +64,9 @@ workNstay_AI/
 ├── hostels.html           # Hostel listings with map view
 ├── hostel-detail.html     # Individual hostel view
 ├── admin.html             # Admin dashboard
+├── about.html             # About page with team info
+├── contact.html           # Contact form and FAQ
+├── 404.html               # Error page
 └── README.md              # This file
 ```
 
@@ -107,6 +110,9 @@ Completed work includes:
 - [x] Hostel portal screens (`hostels.html`, `hostel-detail.html`)
 - [x] Admin panel (`admin.html`)
 - [x] Core JavaScript functionality (`js/main.js`)
+- [x] About page with mission, vision, and team (`about.html`)
+- [x] Contact page with form and FAQ (`contact.html`)
+- [x] 404 Error page (`404.html`)
 
 ---
 
