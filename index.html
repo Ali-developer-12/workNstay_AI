@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-Powered Job & Hostel Support Platform for TEVTA Students. Find verified jobs and hostels with AI matching technology.">
+    <meta name="keywords" content="TEVTA, jobs, hostels, Punjab, skills, students, AI matching">
+    <meta name="author" content="WorkNStay AI">
+    <title>WorkNStay AI - Job & Hostel Support for TEVTA Students</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar-custom" id="mainNav">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="index.html" class="navbar-brand-custom">
+                    <div class="logo-icon">
+                        <i class="bi bi-house-heart-fill"></i>
+                    </div>
+                    WorkNStay AI
+                </a>
+                
+                <div class="d-none d-lg-flex align-items-center gap-2">
+                    <a href="index.html" class="nav-link-custom active">Home</a>
+                    <a href="jobs.html" class="nav-link-custom">Find Jobs</a>
+                    <a href="hostels.html" class="nav-link-custom">Find Hostels</a>
+                    <a href="#features" class="nav-link-custom">Features</a>
+                    <a href="#about" class="nav-link-custom">About</a>
+                </div>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <a href="login.html" class="btn-custom btn-ghost d-none d-sm-flex">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        Login
+                    </a>
+                    <a href="signup.html" class="btn-custom btn-primary">
+                        <i class="bi bi-person-plus"></i>
+                        Sign Up
+                    </a>
+                    <button class="btn-custom btn-icon btn-ghost d-lg-none" id="mobileMenuBtn">
+                        <i class="bi bi-list"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-overlay"></div>
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <a href="index.html" class="navbar-brand-custom">
+                    <div class="logo-icon">
+                        <i class="bi bi-house-heart-fill"></i>
+                    </div>
+                    WorkNStay AI
+                </a>
+                <button class="btn-custom btn-icon btn-ghost" id="mobileMenuClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-nav">
+                <a href="index.html" class="mobile-nav-link active">Home</a>
+                <a href="jobs.html" class="mobile-nav-link">Find Jobs</a>
+                <a href="hostels.html" class="mobile-nav-link">Find Hostels</a>
+                <a href="#features" class="mobile-nav-link">Features</a>
+                <a href="#about" class="mobile-nav-link">About</a>
+            </div>
+            <div class="mobile-menu-footer">
+                <a href="login.html" class="btn-custom btn-outline-primary w-100 mb-3">Login</a>
+                <a href="signup.html" class="btn-custom btn-primary w-100">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <span class="badge-custom badge-primary mb-4 hero-text-reveal">
+                            <i class="bi bi-stars"></i>
+                            Powered by AI Technology
+                        </span>
+                        <h1 class="hero-title hero-text-reveal" style="animation-delay: 0.1s">
+                            AI-Powered <span class="highlight">Job & Hostel</span> Support for TEVTA Students
+                        </h1>
+                        <p class="hero-subtitle hero-text-reveal" style="animation-delay: 0.2s">
+                            Find the perfect job match and safe accommodation near your institute. 
+                            Verified employers, trusted hostels, and AI-driven recommendations 
+                            tailored for your skills.
+                        </p>
+                        <div class="hero-cta hero-text-reveal" style="animation-delay: 0.3s">
+                            <a href="jobs.html" class="btn-custom btn-primary btn-lg btn-animate">
+                                <i class="bi bi-briefcase"></i>
+                                Find Jobs
+                            </a>
+                            <a href="hostels.html" class="btn-custom btn-outline-primary btn-lg">
+                                <i class="bi bi-building"></i>
+                                Find Hostels
+                            </a>
+                        </div>
+                        <div class="hero-stats hero-text-reveal" style="animation-delay: 0.4s">
+                            <div class="hero-stat">
+                                <span class="hero-stat-value" data-count="5000">5,000+</span>
+                                <span class="hero-stat-label">Jobs Available</span>
+                            </div>
+                            <div class="hero-stat">
+                                <span class="hero-stat-value" data-count="1200">1,200+</span>
+                                <span class="hero-stat-label">Verified Hostels</span>
+                            </div>
+                            <div class="hero-stat">
+                                <span class="hero-stat-value" data-count="50000">50,000+</span>
+                                <span class="hero-stat-label">TEVTA Students</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="hero-image">
+                        <div class="hero-image-wrapper">
+                            <!-- Main Hero Image Placeholder -->
+                            <div class="hero-image-main" style="background: linear-gradient(135deg, #e8f5f0 0%, #f0f9ff 100%); height: 500px; display: flex; align-items: center; justify-content: center; border-radius: 24px;">
+                                <div class="text-center p-5">
+                                    <i class="bi bi-mortarboard-fill" style="font-size: 120px; color: var(--primary); opacity: 0.2;"></i>
+                                    <h3 class="mt-4 text-primary">TEVTA Students Portal</h3>
+                                    <p class="text-muted">Your Gateway to Success</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Floating Cards -->
+                            <div class="hero-floating-card card-1">
+                                <div class="hero-floating-icon green">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </div>
+                                <div>
+                                    <strong style="color: var(--gray-900);">95% Match</strong>
+                                    <small class="d-block text-muted">AI Job Recommendation</small>
+                                </div>
+                            </div>
+                            
+                            <div class="hero-floating-card card-2">
+                                <div class="hero-floating-icon blue">
+                                    <i class="bi bi-shield-check"></i>
+                                </div>
+                                <div>
+                                    <strong style="color: var(--gray-900);">Verified</strong>
+                                    <small class="d-block text-muted">TEVTA Student</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Background Decorations -->
+        <div class="hero-decoration">
+            <div class="particle" style="top: 10%; left: 5%;"></div>
+            <div class="particle" style="top: 20%; right: 10%;"></div>
+            <div class="particle" style="bottom: 30%; left: 15%;"></div>
+        </div>
+    </section>
+
+    <!-- Partners/Trust Bar -->
+    <section class="py-5 bg-white border-bottom">
+        <div class="container">
+            <div class="text-center mb-4">
+                <span class="text-muted text-uppercase small fw-semibold" style="letter-spacing: 1px;">Trusted By</span>
+            </div>
+            <div class="row align-items-center justify-content-center g-4">
+                <div class="col-6 col-md-3 col-lg-2 text-center">
+                    <div class="d-flex align-items-center justify-content-center gap-2 text-muted">
+                        <i class="bi bi-bank2" style="font-size: 24px;"></i>
+                        <span class="fw-semibold">TEVTA Punjab</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2 text-center">
+                    <div class="d-flex align-items-center justify-content-center gap-2 text-muted">
+                        <i class="bi bi-building-fill" style="font-size: 24px;"></i>
+                        <span class="fw-semibold">PSDF</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2 text-center">
+                    <div class="d-flex align-items-center justify-content-center gap-2 text-muted">
+                        <i class="bi bi-mortarboard-fill" style="font-size: 24px;"></i>
+                        <span class="fw-semibold">Skill Council</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2 text-center">
+                    <div class="d-flex align-items-center justify-content-center gap-2 text-muted">
+                        <i class="bi bi-globe" style="font-size: 24px;"></i>
+                        <span class="fw-semibold">GIZ Pakistan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                    Why Choose Us
+                </span>
+                <h2 class="section-title">Everything You Need in One Platform</h2>
+                <p class="section-subtitle">
+                    AI-powered matching, verified listings, and government-backed trust 
+                    makes us the #1 choice for TEVTA students.
+                </p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card card-enter" style="animation-delay: 0.1s">
+                        <div class="feature-icon">
+                            <i class="bi bi-cpu"></i>
+                        </div>
+                        <h4 class="feature-title">AI Job Matching</h4>
+                        <p class="feature-description">
+                            Our intelligent AI analyzes your skills, experience, and preferences 
+                            to recommend the perfect job opportunities that match your profile.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card card-enter" style="animation-delay: 0.2s">
+                        <div class="feature-icon">
+                            <i class="bi bi-patch-check-fill"></i>
+                        </div>
+                        <h4 class="feature-title">TEVTA Student Priority</h4>
+                        <p class="feature-description">
+                            Verified TEVTA students get priority access to exclusive job listings 
+                            and special discounts on hostel bookings.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card card-enter" style="animation-delay: 0.3s">
+                        <div class="feature-icon">
+                            <i class="bi bi-building-check"></i>
+                        </div>
+                        <h4 class="feature-title">Verified Employers</h4>
+                        <p class="feature-description">
+                            All employers are thoroughly verified to ensure safe and legitimate 
+                            job opportunities for our students.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card card-enter" style="animation-delay: 0.4s">
+                        <div class="feature-icon">
+                            <i class="bi bi-house-check-fill"></i>
+                        </div>
+                        <h4 class="feature-title">Safe Hostels</h4>
+                        <p class="feature-description">
+                            Browse through verified and inspected hostels with real photos, 
+                            transparent pricing, and genuine student reviews.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card card-enter" style="animation-delay: 0.5s">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-fill-exclamation"></i>
+                        </div>
+                        <h4 class="feature-title">Fake Review Protection</h4>
+                        <p class="feature-description">
+                            Advanced AI detects and removes fake reviews, ensuring you always 
+                            see genuine feedback from real students.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card card-enter" style="animation-delay: 0.6s">
+                        <div class="feature-icon">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <h4 class="feature-title">Location-Based Search</h4>
+                        <p class="feature-description">
+                            Find jobs and hostels near your institute with our smart 
+                            location-based filtering and map view.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section bg-white" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">
+                    <i class="bi bi-signpost-2-fill"></i>
+                    3 Simple Steps
+                </span>
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">
+                    Get started in minutes and find your perfect match today.
+                </p>
+            </div>
+            
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="steps-list">
+                        <div class="step-item mb-5 d-flex align-items-start gap-4">
+                            <div class="step-number">
+                                <span>1</span>
+                            </div>
+                            <div>
+                                <h4 class="mb-2">Create Your Profile</h4>
+                                <p class="text-muted mb-0">
+                                    Sign up and verify your TEVTA student status. Add your skills, 
+                                    experience, and preferences to help AI find the best matches.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item mb-5 d-flex align-items-start gap-4">
+                            <div class="step-number">
+                                <span>2</span>
+                            </div>
+                            <div>
+                                <h4 class="mb-2">Get AI Recommendations</h4>
+                                <p class="text-muted mb-0">
+                                    Our AI analyzes your profile and shows you personalized job 
+                                    and hostel recommendations with match scores.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item d-flex align-items-start gap-4">
+                            <div class="step-number">
+                                <span>3</span>
+                            </div>
+                            <div>
+                                <h4 class="mb-2">Apply & Book</h4>
+                                <p class="text-muted mb-0">
+                                    Apply to jobs with one click and book hostels instantly. 
+                                    Track your applications and bookings from your dashboard.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <div class="card-custom card-premium p-5 text-center" style="background: linear-gradient(135deg, #f8fafb 0%, #e8f5f0 100%);">
+                            <div class="mb-4">
+                                <div class="match-score-circle mx-auto" style="--score: 92%;">
+                                    <span class="match-score-value">92%</span>
+                                </div>
+                            </div>
+                            <h4 class="mb-2">Your Match Score</h4>
+                            <p class="text-muted mb-4">Web Developer at TechCorp Lahore</p>
+                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+                                <span class="chip chip-primary">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    HTML/CSS
+                                </span>
+                                <span class="chip chip-primary">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    JavaScript
+                                </span>
+                                <span class="chip chip-primary">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    React
+                                </span>
+                            </div>
+                            <a href="signup.html" class="btn-custom btn-primary">
+                                <i class="bi bi-rocket-takeoff"></i>
+                                Get Started Free
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge" style="background: rgba(255,255,255,0.1); color: white;">
+                    <i class="bi bi-shield-fill-check"></i>
+                    Trust & Safety
+                </span>
+                <h2 class="section-title">Built on Trust & Transparency</h2>
+                <p class="section-subtitle">
+                    Government-backed verification system ensures safety and reliability 
+                    for every user on our platform.
+                </p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="trust-badge-card">
+                        <div class="trust-badge-icon">
+                            <i class="bi bi-person-badge-fill"></i>
+                        </div>
+                        <h5 class="trust-badge-title">ID Verified</h5>
+                        <p class="trust-badge-text">All users verify their identity through CNIC</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="trust-badge-card">
+                        <div class="trust-badge-icon">
+                            <i class="bi bi-award-fill"></i>
+                        </div>
+                        <h5 class="trust-badge-title">TEVTA Certified</h5>
+                        <p class="trust-badge-text">Official integration with TEVTA database</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="trust-badge-card">
+                        <div class="trust-badge-icon">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <h5 class="trust-badge-title">Verified Reviews</h5>
+                        <p class="trust-badge-text">Only real students can leave reviews</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="trust-badge-card">
+                        <div class="trust-badge-icon">
+                            <i class="bi bi-shield-lock-fill"></i>
+                        </div>
+                        <h5 class="trust-badge-title">Data Protected</h5>
+                        <p class="trust-badge-text">Enterprise-grade security for your data</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section bg-white">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">
+                    <i class="bi bi-chat-heart-fill"></i>
+                    Success Stories
+                </span>
+                <h2 class="section-title">What Students Say</h2>
+                <p class="section-subtitle">
+                    Hear from TEVTA students who found their dream jobs and hostels through our platform.
+                </p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-custom h-100">
+                        <div class="card-body-custom">
+                            <div class="d-flex align-items-center gap-1 mb-3">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                            </div>
+                            <p class="mb-4">
+                                "Found my first internship within a week! The AI matching showed 
+                                me jobs perfectly aligned with my electrical skills. Highly recommend!"
+                            </p>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="avatar avatar-md bg-gradient-primary">AK</div>
+                                <div>
+                                    <strong class="d-block">Ahmed Khan</strong>
+                                    <small class="text-muted">DAE Electrical, TEVTA Lahore</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-custom h-100">
+                        <div class="card-body-custom">
+                            <div class="d-flex align-items-center gap-1 mb-3">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                            </div>
+                            <p class="mb-4">
+                                "The hostel I booked through WorkNStay was exactly as shown. 
+                                Clean, safe, and close to my institute. The verified reviews helped a lot!"
+                            </p>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="avatar avatar-md" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">SF</div>
+                                <div>
+                                    <strong class="d-block">Sara Fatima</strong>
+                                    <small class="text-muted">Computer Science, GTI Faisalabad</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-custom h-100">
+                        <div class="card-body-custom">
+                            <div class="d-flex align-items-center gap-1 mb-3">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-half text-warning"></i>
+                            </div>
+                            <p class="mb-4">
+                                "As an employer, I love how easy it is to find skilled TEVTA students. 
+                                The verification system ensures quality candidates every time."
+                            </p>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="avatar avatar-md" style="background: linear-gradient(135deg, #2563eb, #3b82f6);">MR</div>
+                                <div>
+                                    <strong class="d-block">Muhammad Rashid</strong>
+                                    <small class="text-muted">HR Manager, TechVentures</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Start Your Journey?</h2>
+                <p class="cta-subtitle">
+                    Join 50,000+ TEVTA students who have found their dream jobs and perfect hostels 
+                    through our AI-powered platform.
+                </p>
+                <div class="cta-buttons">
+                    <a href="signup.html" class="btn-custom btn-lg btn-white btn-animate">
+                        <i class="bi bi-rocket-takeoff-fill"></i>
+                        Sign Up Free
+                    </a>
+                    <a href="#features" class="btn-custom btn-lg btn-outline-white">
+                        <i class="bi bi-info-circle"></i>
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <div class="footer-brand">
+                        <div class="logo">
+                            <div class="logo-icon">
+                                <i class="bi bi-house-heart-fill"></i>
+                            </div>
+                            WorkNStay AI
+                        </div>
+                        <p class="footer-description">
+                            AI-powered job and hostel support platform designed specifically 
+                            for TEVTA students. Finding opportunities, building futures.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="footer-title">Platform</h6>
+                    <ul class="footer-links">
+                        <li><a href="jobs.html">Find Jobs</a></li>
+                        <li><a href="hostels.html">Find Hostels</a></li>
+                        <li><a href="post-job.html">Post a Job</a></li>
+                        <li><a href="#">List Hostel</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="footer-title">Company</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press Kit</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="footer-title">Resources</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Guidelines</a></li>
+                        <li><a href="#">API Docs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h6 class="footer-title">Legal</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="mb-0">© 2024 WorkNStay AI. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">English</a>
+                    <a href="#">اردو</a>
+                    <a href="#">پنجابی</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    
+    <!-- Step Number Styles (inline for simplicity) -->
+    <style>
+        .step-number {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .step-item {
+            position: relative;
+        }
+        
+        .step-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 23px;
+            top: 56px;
+            width: 2px;
+            height: calc(100% - 8px);
+            background: var(--gray-200);
+        }
+        
+        .hero-decoration .particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+        }
+        
+        .mobile-menu.open {
+            display: block;
+        }
+        
+        .mobile-menu-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        
+        .mobile-menu-content {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 300px;
+            max-width: 90%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            animation: slideInRight 0.3s ease;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        .mobile-menu-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mobile-menu-nav {
+            flex: 1;
+            padding: 1rem;
+        }
+        
+        .mobile-nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--gray-700);
+            font-weight: 500;
+            border-radius: var(--radius-lg);
+            transition: all 0.2s;
+        }
+        
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            background: rgba(26, 127, 90, 0.1);
+            color: var(--primary);
+        }
+        
+        .mobile-menu-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-100);
+        }
+    </style>
+</body>
+</html>

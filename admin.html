@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - WorkNStay AI">
+    <title>Admin Dashboard - WorkNStay AI</title>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <style>
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Admin Sidebar */
+        .admin-sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .admin-sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .admin-brand .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .admin-brand span {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .admin-brand small {
+            display: block;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .admin-nav {
+            flex: 1;
+            padding: 20px 12px;
+            overflow-y: auto;
+        }
+
+        .admin-nav-section {
+            margin-bottom: 24px;
+        }
+
+        .admin-nav-title {
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 12px;
+            margin-bottom: 8px;
+        }
+
+        .admin-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .admin-nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .admin-nav-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .admin-nav-item i {
+            font-size: 1.1rem;
+            width: 20px;
+        }
+
+        .admin-nav-item .badge {
+            margin-left: auto;
+            background: var(--error);
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .admin-sidebar-footer {
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .admin-user-info {
+            flex: 1;
+        }
+
+        .admin-user-name {
+            font-weight: 600;
+            color: white;
+            font-size: 14px;
+        }
+
+        .admin-user-role {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            margin-left: 260px;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .admin-topbar {
+            background: white;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--gray-100);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-600);
+            cursor: pointer;
+        }
+
+        .admin-page-title h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--gray-900);
+        }
+
+        .admin-page-title p {
+            font-size: 14px;
+            color: var(--gray-500);
+            margin: 0;
+        }
+
+        .admin-topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-topbar-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .admin-topbar-btn:hover {
+            background: var(--gray-200);
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--error);
+            border-radius: 50%;
+        }
+
+        .admin-content {
+            padding: 32px;
+        }
+
+        /* Stats Cards */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .admin-stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(26, 127, 90, 0.1) 0%, transparent 70%);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .stat-icon.green {
+            background: rgba(26, 127, 90, 0.1);
+            color: var(--primary);
+        }
+
+        .stat-icon.blue {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--secondary);
+        }
+
+        .stat-icon.purple {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+
+        .stat-icon.orange {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 20px;
+        }
+
+        .stat-trend.up {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .stat-trend.down {
+            background: var(--error-light);
+            color: var(--error);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+
+        /* Grid Layout */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .admin-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .admin-card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .admin-card-body {
+            padding: 24px;
+        }
+
+        /* Chart Placeholder */
+        .chart-placeholder {
+            height: 280px;
+            background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-500);
+        }
+
+        .chart-placeholder i {
+            font-size: 3rem;
+            color: var(--gray-300);
+            margin-bottom: 12px;
+        }
+
+        /* Recent Activity */
+        .activity-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.green {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .activity-icon.blue {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .activity-icon.orange {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .activity-icon.red {
+            background: var(--error-light);
+            color: var(--error);
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            color: var(--gray-700);
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--gray-100);
+            font-size: 14px;
+        }
+
+        .data-table tr:hover {
+            background: var(--gray-50);
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-cell-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 13px;
+            color: white;
+        }
+
+        .user-cell-info h6 {
+            margin: 0 0 2px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-cell-info span {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-badge.pending {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .status-badge.verified {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .status-badge.rejected {
+            background: var(--error-light);
+            color: var(--error);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn.view {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+        .action-btn.approve {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .action-btn.reject {
+            background: var(--error-light);
+            color: var(--error);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .quick-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--gray-700);
+            transition: all 0.2s;
+        }
+
+        .quick-action-btn:hover {
+            border-color: var(--primary);
+            background: rgba(26, 127, 90, 0.05);
+            color: var(--primary);
+        }
+
+        .quick-action-btn i {
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .admin-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .admin-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-content {
+                padding: 20px;
+            }
+
+            .admin-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-wrapper">
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Admin Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="admin-sidebar-header">
+                <a href="index.html" class="admin-brand">
+                    <div class="logo-icon">
+                        <i class="bi bi-house-heart-fill"></i>
+                    </div>
+                    <div>
+                        <span>WorkNStay AI</span>
+                        <small>Admin Panel</small>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="admin-nav">
+                <div class="admin-nav-section">
+                    <div class="admin-nav-title">Overview</div>
+                    <a href="admin.html" class="admin-nav-item active">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        Dashboard
+                    </a>
+                    <a href="#" class="admin-nav-item">
+                        <i class="bi bi-graph-up"></i>
+                        Analytics
+                    </a>
+                </div>
+
+                <div class="admin-nav-section">
+                    <div class="admin-nav-title">Management</div>
+                    <a href="#" class="admin-nav-item">
+                        <i class="bi bi-people-fill"></i>
+                        Students
+                        <span class="badge">12</span>
+                    </a>
+                    <a href="#" class="admin-nav-item">
+                        <i class="bi bi-building"></i>
+                        Employers
+                        <span class="badge">5</span>
+                    </a>
+                    <a href="#" class="admin-nav-item">
+                        <i class="bi bi-house-door-fill"></i>
+                        Hostel Owners
+                        <span class="badge">3</span>
+                    </a>
+                    <a href="#" class="admin-nav-item">
+                        <i class="bi bi-briefcase-fill"></i>
+                        Jobs
+                    </a>
+                    <a href="#" class="admin-nav-item">
+                        <i class="bi bi-building-fill"></i>
+                        Hostels
+                    </a>
+                </div>
+
+                <div class="admin-nav-section">
+                    <div class="admin-nav-title">Verification</div>
+                    <a href="#" class="admin-nav-item">
+                        <i class="bi bi-patch-check-fill"></i>
+                        TEVTA Verification
+                        <span class="badge">8</span>
+                    </a>
+                    <a href="#" class="admin-nav-item">
+                        <i class="bi bi-shield-check"></i>
+                        Trust Reviews
+                        <span class="badge">4</span>
+                    </a>
+                </div>
+
+                <div class="admin-nav-section">
+                    <div class="admin-nav-title">System</div>
+                    <a href="#" class="admin-nav-item">
+                        <i class="bi bi-gear-fill"></i>
+                        Settings
+                    </a>
+                    <a href="#" class="admin-nav-item">
+                        <i class="bi bi-file-text-fill"></i>
+                        Reports
+                    </a>
+                    <a href="index.html" class="admin-nav-item">
+                        <i class="bi bi-box-arrow-left"></i>
+                        Exit Admin
+                    </a>
+                </div>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <div class="admin-user">
+                    <div class="admin-avatar">SA</div>
+                    <div class="admin-user-info">
+                        <div class="admin-user-name">Super Admin</div>
+                        <div class="admin-user-role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-topbar">
+                <div class="admin-topbar-left">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <div class="admin-page-title">
+                        <h1>Dashboard</h1>
+                        <p>Welcome back! Here's what's happening today.</p>
+                    </div>
+                </div>
+
+                <div class="admin-topbar-right">
+                    <button class="admin-topbar-btn">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <button class="admin-topbar-btn">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <button class="admin-topbar-btn">
+                        <i class="bi bi-gear"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <!-- Stats -->
+                <div class="admin-stats">
+                    <div class="admin-stat-card fade-in">
+                        <div class="stat-header">
+                            <div class="stat-icon green">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+                            <span class="stat-trend up">
+                                <i class="bi bi-arrow-up"></i>
+                                12%
+                            </span>
+                        </div>
+                        <div class="stat-value">2,847</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+
+                    <div class="admin-stat-card fade-in" style="animation-delay: 0.1s">
+                        <div class="stat-header">
+                            <div class="stat-icon blue">
+                                <i class="bi bi-briefcase-fill"></i>
+                            </div>
+                            <span class="stat-trend up">
+                                <i class="bi bi-arrow-up"></i>
+                                8%
+                            </span>
+                        </div>
+                        <div class="stat-value">486</div>
+                        <div class="stat-label">Active Jobs</div>
+                    </div>
+
+                    <div class="admin-stat-card fade-in" style="animation-delay: 0.2s">
+                        <div class="stat-header">
+                            <div class="stat-icon purple">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+                            <span class="stat-trend up">
+                                <i class="bi bi-arrow-up"></i>
+                                15%
+                            </span>
+                        </div>
+                        <div class="stat-value">128</div>
+                        <div class="stat-label">Verified Hostels</div>
+                    </div>
+
+                    <div class="admin-stat-card fade-in" style="animation-delay: 0.3s">
+                        <div class="stat-header">
+                            <div class="stat-icon orange">
+                                <i class="bi bi-check2-circle"></i>
+                            </div>
+                            <span class="stat-trend up">
+                                <i class="bi bi-arrow-up"></i>
+                                24%
+                            </span>
+                        </div>
+                        <div class="stat-value">1,256</div>
+                        <div class="stat-label">Successful Placements</div>
+                    </div>
+                </div>
+
+                <!-- Charts & Activity -->
+                <div class="admin-grid">
+                    <div class="admin-card fade-in" style="animation-delay: 0.4s">
+                        <div class="admin-card-header">
+                            <h3>Platform Analytics</h3>
+                            <select class="sort-select" style="padding: 8px 28px 8px 12px;">
+                                <option>Last 7 Days</option>
+                                <option>Last 30 Days</option>
+                                <option>Last 3 Months</option>
+                            </select>
+                        </div>
+                        <div class="admin-card-body">
+                            <div class="chart-placeholder">
+                                <i class="bi bi-bar-chart-line"></i>
+                                <span>Analytics Chart</span>
+                                <small class="text-muted">Interactive charts will be displayed here</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-card fade-in" style="animation-delay: 0.5s">
+                        <div class="admin-card-header">
+                            <h3>Recent Activity</h3>
+                            <a href="#" class="text-primary small">View All</a>
+                        </div>
+                        <div class="admin-card-body" style="padding: 0 24px;">
+                            <ul class="activity-list">
+                                <li class="activity-item">
+                                    <div class="activity-icon green">
+                                        <i class="bi bi-person-plus"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-text"><strong>Ahmed Khan</strong> registered as student</p>
+                                        <span class="activity-time">5 minutes ago</span>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon blue">
+                                        <i class="bi bi-briefcase"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-text">New job posted: <strong>Web Developer</strong></p>
+                                        <span class="activity-time">15 minutes ago</span>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon orange">
+                                        <i class="bi bi-patch-check"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-text"><strong>Green View Hostel</strong> verified</p>
+                                        <span class="activity-time">1 hour ago</span>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon red">
+                                        <i class="bi bi-flag"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-text">Review flagged for <strong>XYZ Hostel</strong></p>
+                                        <span class="activity-time">2 hours ago</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Verifications -->
+                <div class="admin-card fade-in" style="animation-delay: 0.6s; margin-bottom: 24px;">
+                    <div class="admin-card-header">
+                        <h3>Pending TEVTA Verifications</h3>
+                        <span class="badge-custom badge-warning">12 Pending</span>
+                    </div>
+                    <div class="admin-card-body" style="padding: 0;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Roll Number</th>
+                                    <th>Institute</th>
+                                    <th>Trade</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-cell-avatar" style="background: var(--primary);">MH</div>
+                                            <div class="user-cell-info">
+                                                <h6>Muhammad Hassan</h6>
+                                                <span>Applied 2 hours ago</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>GTI-2024-1547</td>
+                                    <td>GTI Lahore</td>
+                                    <td>DAE Electrical</td>
+                                    <td><span class="status-badge pending"><i class="bi bi-clock"></i> Pending</span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn view"><i class="bi bi-eye"></i></button>
+                                            <button class="action-btn approve"><i class="bi bi-check-lg"></i></button>
+                                            <button class="action-btn reject"><i class="bi bi-x-lg"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-cell-avatar" style="background: #8b5cf6;">AA</div>
+                                            <div class="user-cell-info">
+                                                <h6>Ali Ahmed</h6>
+                                                <span>Applied 4 hours ago</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>GTI-2024-1632</td>
+                                    <td>GTI Lahore</td>
+                                    <td>Computer Science</td>
+                                    <td><span class="status-badge pending"><i class="bi bi-clock"></i> Pending</span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn view"><i class="bi bi-eye"></i></button>
+                                            <button class="action-btn approve"><i class="bi bi-check-lg"></i></button>
+                                            <button class="action-btn reject"><i class="bi bi-x-lg"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-cell-avatar" style="background: #f59e0b;">FK</div>
+                                            <div class="user-cell-info">
+                                                <h6>Fatima Khan</h6>
+                                                <span>Applied 6 hours ago</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>GTI-2024-1718</td>
+                                    <td>GTI Faisalabad</td>
+                                    <td>Web Development</td>
+                                    <td><span class="status-badge pending"><i class="bi bi-clock"></i> Pending</span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn view"><i class="bi bi-eye"></i></button>
+                                            <button class="action-btn approve"><i class="bi bi-check-lg"></i></button>
+                                            <button class="action-btn reject"><i class="bi bi-x-lg"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="admin-card fade-in" style="animation-delay: 0.7s">
+                    <div class="admin-card-header">
+                        <h3>Quick Actions</h3>
+                    </div>
+                    <div class="admin-card-body">
+                        <div class="quick-actions">
+                            <a href="#" class="quick-action-btn">
+                                <i class="bi bi-person-plus-fill"></i>
+                                <span>Add New User</span>
+                            </a>
+                            <a href="#" class="quick-action-btn">
+                                <i class="bi bi-briefcase-fill"></i>
+                                <span>Post a Job</span>
+                            </a>
+                            <a href="#" class="quick-action-btn">
+                                <i class="bi bi-building-add"></i>
+                                <span>Add Hostel</span>
+                            </a>
+                            <a href="#" class="quick-action-btn">
+                                <i class="bi bi-file-earmark-text-fill"></i>
+                                <span>Generate Report</span>
+                            </a>
+                            <a href="#" class="quick-action-btn">
+                                <i class="bi bi-megaphone-fill"></i>
+                                <span>Send Announcement</span>
+                            </a>
+                            <a href="#" class="quick-action-btn">
+                                <i class="bi bi-gear-fill"></i>
+                                <span>Platform Settings</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('adminSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+    </script>
+</body>
+
+</html>

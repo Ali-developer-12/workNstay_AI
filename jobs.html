@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find Jobs - WorkNStay AI - AI-powered job matching for TEVTA students">
+    <title>Find Jobs - WorkNStay AI</title>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <style>
+        body {
+            padding-top: 80px;
+        }
+
+        .jobs-hero {
+            background: linear-gradient(135deg, #f8fafb 0%, #e8f5f0 50%, #f0f9ff 100%);
+            padding: 48px 0;
+            margin-bottom: 32px;
+        }
+
+        .jobs-hero-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .jobs-hero-subtitle {
+            color: var(--gray-600);
+            margin-bottom: 24px;
+        }
+
+        .search-wrapper {
+            background: white;
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-input-group {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--gray-50);
+            border-radius: 12px;
+        }
+
+        .search-input-group i {
+            color: var(--gray-400);
+            font-size: 1.25rem;
+        }
+
+        .search-input-group input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-divider {
+            width: 1px;
+            background: var(--gray-200);
+            margin: 8px 0;
+        }
+
+        .jobs-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            padding-bottom: 64px;
+        }
+
+        /* Filter Sidebar */
+        .filter-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--gray-100);
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .filter-clear {
+            font-size: 13px;
+            color: var(--primary);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .filter-group {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .filter-group:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .filter-group-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 12px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--gray-300);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .filter-option input[type="checkbox"]:checked {
+            accent-color: var(--primary);
+        }
+
+        .filter-option label {
+            flex: 1;
+            font-size: 14px;
+            color: var(--gray-600);
+            cursor: pointer;
+        }
+
+        .filter-option .count {
+            font-size: 12px;
+            color: var(--gray-400);
+            background: var(--gray-100);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .salary-range {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .salary-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .salary-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Jobs List */
+        .jobs-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .jobs-count {
+            color: var(--gray-600);
+        }
+
+        .jobs-count strong {
+            color: var(--gray-900);
+        }
+
+        .sort-select {
+            padding: 10px 32px 10px 14px;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 14px;
+            background: white url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") no-repeat right 10px center;
+            background-size: 16px;
+            cursor: pointer;
+        }
+
+        .jobs-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        /* Job Card */
+        .job-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .job-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .job-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .job-card-left {
+            display: flex;
+            gap: 16px;
+        }
+
+        .company-logo {
+            width: 56px;
+            height: 56px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--gray-600);
+            font-size: 1.25rem;
+        }
+
+        .job-info h5 {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 4px;
+        }
+
+        .job-info p {
+            color: var(--gray-500);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .job-card-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .match-score {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .match-score.high {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .match-score.medium {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .match-score.low {
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .favorite-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .favorite-btn:hover,
+        .favorite-btn.active {
+            background: var(--error-light);
+            color: var(--error);
+        }
+
+        .job-description {
+            color: var(--gray-600);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .job-tag {
+            padding: 6px 12px;
+            background: var(--gray-100);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        .job-tag.skill {
+            background: rgba(26, 127, 90, 0.1);
+            color: var(--primary);
+        }
+
+        .job-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 20px;
+        }
+
+        .job-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .job-meta-item i {
+            color: var(--gray-400);
+        }
+
+        .job-salary {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* Applied Badge */
+        .applied-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            background: var(--info-light);
+            color: var(--info);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Pagination */
+        .pagination-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .pagination-custom {
+            display: flex;
+            gap: 8px;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            color: var(--gray-600);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .page-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Mobile Filter Toggle */
+        .filter-toggle-btn {
+            display: none;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .jobs-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-sidebar {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1000;
+                background: rgba(0, 0, 0, 0.5);
+                padding: 20px;
+                overflow-y: auto;
+            }
+
+            .filter-sidebar.show {
+                display: block;
+            }
+
+            .filter-card {
+                max-width: 360px;
+                margin: 0 auto;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .filter-toggle-btn {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-wrapper {
+                flex-direction: column;
+            }
+
+            .search-divider {
+                width: 100%;
+                height: 1px;
+                margin: 0;
+            }
+
+            .job-card-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .job-card-right {
+                flex-direction: row;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .job-meta {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar-custom">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="index.html" class="navbar-brand-custom">
+                    <div class="logo-icon">
+                        <i class="bi bi-house-heart-fill"></i>
+                    </div>
+                    WorkNStay AI
+                </a>
+
+                <div class="d-none d-lg-flex align-items-center gap-2">
+                    <a href="index.html" class="nav-link-custom">Home</a>
+                    <a href="jobs.html" class="nav-link-custom active">Find Jobs</a>
+                    <a href="hostels.html" class="nav-link-custom">Find Hostels</a>
+                    <a href="dashboard.html" class="nav-link-custom">Dashboard</a>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <a href="dashboard.html" class="btn-custom btn-primary">
+                        <i class="bi bi-grid"></i>
+                        Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Jobs Hero -->
+    <section class="jobs-hero">
+        <div class="container">
+            <h1 class="jobs-hero-title">Find Your Dream Job</h1>
+            <p class="jobs-hero-subtitle">AI-powered job matching tailored to your skills and preferences</p>
+
+            <div class="search-wrapper">
+                <div class="search-input-group">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Job title, keyword, or company" id="searchKeyword">
+                </div>
+                <div class="search-divider"></div>
+                <div class="search-input-group">
+                    <i class="bi bi-geo-alt"></i>
+                    <input type="text" placeholder="City or location" id="searchLocation">
+                </div>
+                <button class="btn-custom btn-primary btn-lg">
+                    <i class="bi bi-search"></i>
+                    Search Jobs
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jobs Content -->
+    <section class="container">
+        <button class="btn-custom btn-outline-primary filter-toggle-btn" onclick="toggleFilters()">
+            <i class="bi bi-funnel"></i>
+            Show Filters
+        </button>
+
+        <div class="jobs-container">
+            <!-- Filter Sidebar -->
+            <aside class="filter-sidebar" id="filterSidebar">
+                <div class="filter-card">
+                    <div class="filter-header">
+                        <span class="filter-title">Filters</span>
+                        <button class="filter-clear">Clear All</button>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-group-title">Job Type</div>
+                        <label class="filter-option">
+                            <input type="checkbox" checked>
+                            <span>Full-time</span>
+                            <span class="count">128</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Part-time</span>
+                            <span class="count">45</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Internship</span>
+                            <span class="count">32</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Contract</span>
+                            <span class="count">18</span>
+                        </label>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-group-title">Experience Level</div>
+                        <label class="filter-option">
+                            <input type="checkbox" checked>
+                            <span>Entry Level</span>
+                            <span class="count">89</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>1-2 Years</span>
+                            <span class="count">67</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>3-5 Years</span>
+                            <span class="count">34</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>5+ Years</span>
+                            <span class="count">12</span>
+                        </label>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-group-title">Salary Range (PKR)</div>
+                        <div class="salary-range">
+                            <input type="number" class="salary-input" placeholder="Min" value="20000">
+                            <span>-</span>
+                            <input type="number" class="salary-input" placeholder="Max" value="100000">
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-group-title">Work Mode</div>
+                        <label class="filter-option">
+                            <input type="checkbox" checked>
+                            <span>On-site</span>
+                            <span class="count">95</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Remote</span>
+                            <span class="count">28</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Hybrid</span>
+                            <span class="count">42</span>
+                        </label>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-group-title">Skills</div>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>HTML/CSS</span>
+                            <span class="count">45</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>JavaScript</span>
+                            <span class="count">38</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Python</span>
+                            <span class="count">25</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Electrical</span>
+                            <span class="count">52</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Mechanical</span>
+                            <span class="count">48</span>
+                        </label>
+                    </div>
+
+                    <button class="btn-custom btn-primary w-100 d-lg-none" onclick="toggleFilters()">
+                        Apply Filters
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Jobs List -->
+            <div class="jobs-list">
+                <div class="jobs-list-header">
+                    <span class="jobs-count"><strong>156</strong> jobs found</span>
+                    <select class="sort-select">
+                        <option>Best Match</option>
+                        <option>Most Recent</option>
+                        <option>Highest Salary</option>
+                        <option>Nearest Location</option>
+                    </select>
+                </div>
+
+                <div class="jobs-grid">
+                    <!-- Job Card 1 -->
+                    <div class="job-card" onclick="window.location='job-detail.html'">
+                        <div class="job-card-header">
+                            <div class="job-card-left">
+                                <div class="company-logo">TC</div>
+                                <div class="job-info">
+                                    <h5>Senior Web Developer</h5>
+                                    <p>TechCorp Solutions • Lahore</p>
+                                </div>
+                            </div>
+                            <div class="job-card-right">
+                                <span class="match-score high">
+                                    <i class="bi bi-stars"></i>
+                                    95% Match
+                                </span>
+                                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <p class="job-description">
+                            We are looking for an experienced web developer to join our growing team.
+                            You will be responsible for building responsive websites and web applications
+                            using modern technologies.
+                        </p>
+
+                        <div class="job-tags">
+                            <span class="job-tag skill">HTML/CSS</span>
+                            <span class="job-tag skill">JavaScript</span>
+                            <span class="job-tag skill">React</span>
+                            <span class="job-tag">Full-time</span>
+                            <span class="job-tag">On-site</span>
+                        </div>
+
+                        <div class="job-card-footer">
+                            <div class="job-meta">
+                                <span class="job-meta-item">
+                                    <i class="bi bi-clock"></i>
+                                    Posted 2 days ago
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="bi bi-briefcase"></i>
+                                    Entry Level
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="bi bi-people"></i>
+                                    15 applicants
+                                </span>
+                            </div>
+                            <span class="job-salary">Rs. 45,000 - 60,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Job Card 2 -->
+                    <div class="job-card">
+                        <div class="job-card-header">
+                            <div class="job-card-left">
+                                <div class="company-logo" style="background: var(--info-light); color: var(--info);">GS
+                                </div>
+                                <div class="job-info">
+                                    <h5>Frontend Engineer</h5>
+                                    <p>Global Systems Pvt Ltd • Lahore</p>
+                                </div>
+                            </div>
+                            <div class="job-card-right">
+                                <span class="match-score high">
+                                    <i class="bi bi-stars"></i>
+                                    92% Match
+                                </span>
+                                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <p class="job-description">
+                            Join our dynamic frontend team and work on cutting-edge web applications.
+                            We're building the next generation of enterprise software solutions.
+                        </p>
+
+                        <div class="job-tags">
+                            <span class="job-tag skill">Vue.js</span>
+                            <span class="job-tag skill">TypeScript</span>
+                            <span class="job-tag skill">Tailwind CSS</span>
+                            <span class="job-tag">Full-time</span>
+                            <span class="job-tag">Hybrid</span>
+                        </div>
+
+                        <div class="job-card-footer">
+                            <div class="job-meta">
+                                <span class="job-meta-item">
+                                    <i class="bi bi-clock"></i>
+                                    Posted 1 week ago
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="bi bi-briefcase"></i>
+                                    1-2 Years
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="bi bi-people"></i>
+                                    28 applicants
+                                </span>
+                            </div>
+                            <span class="job-salary">Rs. 55,000 - 75,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Job Card 3 - Applied -->
+                    <div class="job-card">
+                        <div class="job-card-header">
+                            <div class="job-card-left">
+                                <div class="company-logo"
+                                    style="background: var(--warning-light); color: var(--warning);">DS</div>
+                                <div class="job-info">
+                                    <h5>IT Support Technician</h5>
+                                    <p>DataSoft Pvt Ltd • Lahore</p>
+                                </div>
+                            </div>
+                            <div class="job-card-right">
+                                <span class="applied-badge">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    Applied
+                                </span>
+                                <button class="favorite-btn active"
+                                    onclick="event.stopPropagation(); toggleFavorite(this)">
+                                    <i class="bi bi-heart-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <p class="job-description">
+                            Looking for a tech-savvy individual to provide technical support and
+                            troubleshoot hardware/software issues for our clients.
+                        </p>
+
+                        <div class="job-tags">
+                            <span class="job-tag skill">Networking</span>
+                            <span class="job-tag skill">Windows</span>
+                            <span class="job-tag skill">Hardware</span>
+                            <span class="job-tag">Full-time</span>
+                            <span class="job-tag">On-site</span>
+                        </div>
+
+                        <div class="job-card-footer">
+                            <div class="job-meta">
+                                <span class="job-meta-item">
+                                    <i class="bi bi-clock"></i>
+                                    Posted 3 days ago
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="bi bi-briefcase"></i>
+                                    Entry Level
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="bi bi-people"></i>
+                                    42 applicants
+                                </span>
+                            </div>
+                            <span class="job-salary">Rs. 35,000 - 45,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Job Card 4 -->
+                    <div class="job-card">
+                        <div class="job-card-header">
+                            <div class="job-card-left">
+                                <div class="company-logo"
+                                    style="background: var(--success-light); color: var(--success);">IN</div>
+                                <div class="job-info">
+                                    <h5>Mobile App Developer</h5>
+                                    <p>Innovate Tech • Lahore</p>
+                                </div>
+                            </div>
+                            <div class="job-card-right">
+                                <span class="match-score medium">
+                                    <i class="bi bi-stars"></i>
+                                    82% Match
+                                </span>
+                                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <p class="job-description">
+                            Develop innovative mobile applications for iOS and Android platforms.
+                            Work with our creative team to deliver exceptional user experiences.
+                        </p>
+
+                        <div class="job-tags">
+                            <span class="job-tag skill">Flutter</span>
+                            <span class="job-tag skill">React Native</span>
+                            <span class="job-tag skill">Firebase</span>
+                            <span class="job-tag">Full-time</span>
+                            <span class="job-tag">Remote</span>
+                        </div>
+
+                        <div class="job-card-footer">
+                            <div class="job-meta">
+                                <span class="job-meta-item">
+                                    <i class="bi bi-clock"></i>
+                                    Posted 5 days ago
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="bi bi-briefcase"></i>
+                                    1-2 Years
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="bi bi-people"></i>
+                                    19 applicants
+                                </span>
+                            </div>
+                            <span class="job-salary">Rs. 50,000 - 70,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Job Card 5 -->
+                    <div class="job-card">
+                        <div class="job-card-header">
+                            <div class="job-card-left">
+                                <div class="company-logo" style="background: var(--error-light); color: var(--error);">
+                                    PE</div>
+                                <div class="job-info">
+                                    <h5>Electrical Technician</h5>
+                                    <p>Power Electric Co. • Faisalabad</p>
+                                </div>
+                            </div>
+                            <div class="job-card-right">
+                                <span class="match-score medium">
+                                    <i class="bi bi-stars"></i>
+                                    78% Match
+                                </span>
+                                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <p class="job-description">
+                            Seeking skilled electrical technicians for installation, maintenance,
+                            and repair of electrical systems in commercial buildings.
+                        </p>
+
+                        <div class="job-tags">
+                            <span class="job-tag skill">Electrical</span>
+                            <span class="job-tag skill">PLC</span>
+                            <span class="job-tag skill">Wiring</span>
+                            <span class="job-tag">Full-time</span>
+                            <span class="job-tag">On-site</span>
+                        </div>
+
+                        <div class="job-card-footer">
+                            <div class="job-meta">
+                                <span class="job-meta-item">
+                                    <i class="bi bi-clock"></i>
+                                    Posted 1 week ago
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="bi bi-briefcase"></i>
+                                    Entry Level
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="bi bi-people"></i>
+                                    35 applicants
+                                </span>
+                            </div>
+                            <span class="job-salary">Rs. 40,000 - 55,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-wrapper">
+                    <div class="pagination-custom">
+                        <button class="page-btn">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">4</button>
+                        <button class="page-btn">...</button>
+                        <button class="page-btn">12</button>
+                        <button class="page-btn">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function toggleFilters() {
+            const sidebar = document.getElementById('filterSidebar');
+            sidebar.classList.toggle('show');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hostel Details - WorkNStay AI">
+    <title>Green View Student Hostel - WorkNStay AI</title>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <style>
+        body {
+            padding-top: 80px;
+            background: var(--bg-secondary);
+        }
+
+        .hostel-detail-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 20px 64px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-600);
+            font-weight: 500;
+            margin-bottom: 24px;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+            margin-bottom: 32px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .gallery-main {
+            height: 400px;
+            background: linear-gradient(135deg, #e8f5f0, #f0f9ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-main i {
+            font-size: 5rem;
+            color: var(--gray-300);
+        }
+
+        .gallery-sidebar {
+            display: grid;
+            gap: 12px;
+        }
+
+        .gallery-thumb {
+            height: calc((400px - 12px) / 2);
+            background: linear-gradient(135deg, #f0f9ff, #e8f5f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-thumb i {
+            font-size: 2.5rem;
+            color: var(--gray-300);
+        }
+
+        .gallery-more {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .hostel-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 32px;
+        }
+
+        /* Main Content */
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--gray-100);
+            margin-bottom: 24px;
+        }
+
+        .hostel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .hostel-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hostel-badges {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .hostel-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gray-600);
+        }
+
+        .hostel-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 44px;
+            height: 44px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--gray-600);
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: var(--gray-200);
+        }
+
+        .action-btn.favorite:hover,
+        .action-btn.favorite.active {
+            background: var(--error-light);
+            color: var(--error);
+        }
+
+        /* Rating Summary */
+        .rating-summary {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--gray-50);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .rating-big {
+            text-align: center;
+        }
+
+        .rating-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            line-height: 1;
+        }
+
+        .rating-stars {
+            color: var(--accent-gold);
+            margin: 4px 0;
+        }
+
+        .rating-count {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .rating-bars {
+            flex: 1;
+        }
+
+        .rating-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .rating-bar-label {
+            width: 16px;
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        .rating-bar-track {
+            flex: 1;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .rating-bar-fill {
+            height: 100%;
+            background: var(--accent-gold);
+            border-radius: 3px;
+        }
+
+        .rating-bar-count {
+            width: 24px;
+            font-size: 11px;
+            color: var(--gray-400);
+        }
+
+        /* Facilities Grid */
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .facility-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--gray-50);
+            border-radius: 12px;
+        }
+
+        .facility-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(26, 127, 90, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .facility-name {
+            font-weight: 500;
+            color: var(--gray-900);
+        }
+
+        /* Rules List */
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rules-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .rules-list li:last-child {
+            border-bottom: none;
+        }
+
+        .rules-list i {
+            color: var(--primary);
+            margin-top: 2px;
+        }
+
+        /* Reviews */
+        .review-card {
+            padding: 20px;
+            background: var(--gray-50);
+            border-radius: 16px;
+            margin-bottom: 16px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .review-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-avatar {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .review-user-info h6 {
+            margin: 0 0 4px;
+            font-weight: 600;
+        }
+
+        .review-user-info span {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--success);
+            background: var(--success-light);
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+        }
+
+        .review-rating {
+            color: var(--accent-gold);
+        }
+
+        .review-text {
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .review-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .review-helpful {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-helpful button {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            color: var(--gray-500);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .review-helpful button:hover {
+            color: var(--primary);
+        }
+
+        /* Trust Score */
+        .trust-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfeff 100%);
+            border: 1px solid rgba(26, 127, 90, 0.2);
+            margin-bottom: 24px;
+        }
+
+        .trust-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .trust-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-gradient);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .trust-score-display {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .trust-score-bar {
+            height: 12px;
+            background: var(--gray-200);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .trust-score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--warning) 0%, var(--success) 100%);
+            border-radius: 6px;
+        }
+
+        .trust-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .trust-item i {
+            color: var(--success);
+        }
+
+        /* Sidebar */
+        .sticky-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .booking-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--gray-100);
+            margin-bottom: 24px;
+        }
+
+        .price-display {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .price-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .price-period {
+            color: var(--gray-500);
+        }
+
+        .room-options {
+            margin-bottom: 20px;
+        }
+
+        .room-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            cursor: pointer;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+
+        .room-option:hover {
+            border-color: var(--primary);
+        }
+
+        .room-option.selected {
+            border-color: var(--primary);
+            background: rgba(26, 127, 90, 0.05);
+        }
+
+        .room-option input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+        }
+
+        .room-info {
+            flex: 1;
+        }
+
+        .room-name {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .room-desc {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .room-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .contact-info {
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            font-size: 1.25rem;
+            width: 24px;
+        }
+
+        /* Location Card */
+        .location-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--gray-100);
+        }
+
+        .map-preview {
+            height: 160px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .map-preview i {
+            font-size: 2rem;
+            color: var(--gray-400);
+        }
+
+        .distance-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--success-light);
+            color: var(--success);
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        @media (max-width: 992px) {
+            .hostel-detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-main {
+                height: 300px;
+            }
+
+            .gallery-sidebar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-thumb {
+                height: 120px;
+            }
+
+            .facilities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar-custom">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="index.html" class="navbar-brand-custom">
+                    <div class="logo-icon">
+                        <i class="bi bi-house-heart-fill"></i>
+                    </div>
+                    WorkNStay AI
+                </a>
+
+                <div class="d-none d-lg-flex align-items-center gap-2">
+                    <a href="index.html" class="nav-link-custom">Home</a>
+                    <a href="jobs.html" class="nav-link-custom">Find Jobs</a>
+                    <a href="hostels.html" class="nav-link-custom active">Find Hostels</a>
+                    <a href="dashboard.html" class="nav-link-custom">Dashboard</a>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <a href="dashboard.html" class="btn-custom btn-primary">
+                        <i class="bi bi-grid"></i>
+                        Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hostel-detail-container">
+        <a href="hostels.html" class="back-link">
+            <i class="bi bi-arrow-left"></i>
+            Back to Hostels
+        </a>
+
+        <!-- Image Gallery -->
+        <div class="image-gallery">
+            <div class="gallery-main">
+                <i class="bi bi-house-heart"></i>
+            </div>
+            <div class="gallery-sidebar">
+                <div class="gallery-thumb">
+                    <i class="bi bi-door-open"></i>
+                </div>
+                <div class="gallery-thumb gallery-more">
+                    +8 Photos
+                </div>
+            </div>
+        </div>
+
+        <div class="hostel-detail-grid">
+            <!-- Main Content -->
+            <div class="hostel-detail-main">
+                <!-- Header -->
+                <div class="content-card">
+                    <div class="hostel-header">
+                        <div>
+                            <h1 class="hostel-title">Green View Student Hostel</h1>
+                            <div class="hostel-badges">
+                                <span class="badge-custom badge-verified">
+                                    <i class="bi bi-patch-check-fill"></i>
+                                    Verified
+                                </span>
+                                <span class="badge-custom badge-primary">
+                                    <i class="bi bi-star-fill"></i>
+                                    Top Rated
+                                </span>
+                            </div>
+                            <p class="hostel-location">
+                                <i class="bi bi-geo-alt"></i>
+                                123 Model Town, Block C, Lahore, Punjab
+                            </p>
+                        </div>
+                        <div class="hostel-actions">
+                            <button class="action-btn favorite" onclick="toggleFavorite(this)">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="bi bi-share"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="rating-summary">
+                        <div class="rating-big">
+                            <div class="rating-value">4.8</div>
+                            <div class="rating-stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <div class="rating-count">45 reviews</div>
+                        </div>
+                        <div class="rating-bars">
+                            <div class="rating-bar-item">
+                                <span class="rating-bar-label">5</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 75%"></div>
+                                </div>
+                                <span class="rating-bar-count">34</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span class="rating-bar-label">4</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 18%"></div>
+                                </div>
+                                <span class="rating-bar-count">8</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span class="rating-bar-label">3</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 5%"></div>
+                                </div>
+                                <span class="rating-bar-count">2</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span class="rating-bar-label">2</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 2%"></div>
+                                </div>
+                                <span class="rating-bar-count">1</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span class="rating-bar-label">1</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="rating-bar-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About -->
+                <div class="content-card">
+                    <h3><i class="bi bi-info-circle text-primary me-2"></i>About This Hostel</h3>
+                    <p class="text-muted" style="line-height: 1.8;">
+                        Green View Student Hostel is a premium accommodation specially designed for TEVTA and university
+                        students. Located just 500m from Government Technical Institute Lahore, we offer a safe,
+                        comfortable, and study-friendly environment. Our hostel features modern amenities, 24/7
+                        security, and a dedicated mess serving nutritious meals. We pride ourselves on maintaining a
+                        clean and disciplined atmosphere conducive to academic success.
+                    </p>
+                </div>
+
+                <!-- Facilities -->
+                <div class="content-card">
+                    <h3><i class="bi bi-grid-1x2 text-primary me-2"></i>Facilities & Amenities</h3>
+                    <div class="facilities-grid">
+                        <div class="facility-item">
+                            <div class="facility-icon"><i class="bi bi-wifi"></i></div>
+                            <span class="facility-name">High-Speed WiFi</span>
+                        </div>
+                        <div class="facility-item">
+                            <div class="facility-icon"><i class="bi bi-shield-check"></i></div>
+                            <span class="facility-name">24/7 Security</span>
+                        </div>
+                        <div class="facility-item">
+                            <div class="facility-icon"><i class="bi bi-cup-hot"></i></div>
+                            <span class="facility-name">Mess Facility</span>
+                        </div>
+                        <div class="facility-item">
+                            <div class="facility-icon"><i class="bi bi-droplet"></i></div>
+                            <span class="facility-name">Filtered Water</span>
+                        </div>
+                        <div class="facility-item">
+                            <div class="facility-icon"><i class="bi bi-plug"></i></div>
+                            <span class="facility-name">Power Backup</span>
+                        </div>
+                        <div class="facility-item">
+                            <div class="facility-icon"><i class="bi bi-p-circle"></i></div>
+                            <span class="facility-name">Bike Parking</span>
+                        </div>
+                        <div class="facility-item">
+                            <div class="facility-icon"><i class="bi bi-book"></i></div>
+                            <span class="facility-name">Study Room</span>
+                        </div>
+                        <div class="facility-item">
+                            <div class="facility-icon"><i class="bi bi-tv"></i></div>
+                            <span class="facility-name">Common Room</span>
+                        </div>
+                        <div class="facility-item">
+                            <div class="facility-icon"><i class="bi bi-basket"></i></div>
+                            <span class="facility-name">Laundry Service</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rules -->
+                <div class="content-card">
+                    <h3><i class="bi bi-list-check text-primary me-2"></i>Hostel Rules</h3>
+                    <ul class="rules-list">
+                        <li>
+                            <i class="bi bi-clock"></i>
+                            <span>Entry time is 10:00 PM. Late entries require prior permission.</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-person-x"></i>
+                            <span>Visitors are allowed only in the common area during visiting hours (4-7 PM).</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-volume-mute"></i>
+                            <span>Maintain silence in study areas and after 11:00 PM.</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-slash-circle"></i>
+                            <span>Smoking, alcohol, and drugs are strictly prohibited.</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-trash"></i>
+                            <span>Keep your room and common areas clean at all times.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Reviews -->
+                <div class="content-card">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="mb-0"><i class="bi bi-chat-quote text-primary me-2"></i>Student Reviews</h3>
+                        <span class="badge-custom badge-success">
+                            <i class="bi bi-shield-check"></i>
+                            Verified Reviews Only
+                        </span>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-user">
+                                <div class="review-avatar">MH</div>
+                                <div class="review-user-info">
+                                    <h6>
+                                        Muhammad Hassan
+                                        <span class="verified-badge">
+                                            <i class="bi bi-patch-check-fill"></i>
+                                            TEVTA Student
+                                        </span>
+                                    </h6>
+                                    <span>DAE Electrical • GTI Lahore</span>
+                                </div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Excellent hostel! Very close to GTI, and the rooms are clean and well-maintained. The
+                            security is top-notch, and the mess food is actually good. Highly recommend for TEVTA
+                            students.
+                        </p>
+                        <div class="review-footer">
+                            <span>2 weeks ago</span>
+                            <div class="review-helpful">
+                                <button><i class="bi bi-hand-thumbs-up"></i> Helpful (12)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-user">
+                                <div class="review-avatar"
+                                    style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">AA</div>
+                                <div class="review-user-info">
+                                    <h6>
+                                        Ali Ahmed
+                                        <span class="verified-badge">
+                                            <i class="bi bi-patch-check-fill"></i>
+                                            TEVTA Student
+                                        </span>
+                                    </h6>
+                                    <span>Web Development • GTI Lahore</span>
+                                </div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Good hostel with great WiFi for my programming practice. The study room is quiet and
+                            well-lit. Only suggestion would be to extend the canteen timings till 11 PM.
+                        </p>
+                        <div class="review-footer">
+                            <span>1 month ago</span>
+                            <div class="review-helpful">
+                                <button><i class="bi bi-hand-thumbs-up"></i> Helpful (8)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-custom btn-outline-primary w-100 mt-3">
+                        View All 45 Reviews
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="hostel-detail-sidebar">
+                <div class="sticky-sidebar">
+                    <!-- Booking Card -->
+                    <div class="booking-card">
+                        <div class="price-display">
+                            <span class="price-value">Rs. 8,000</span>
+                            <span class="price-period">/ month</span>
+                        </div>
+
+                        <div class="room-options">
+                            <label class="room-option selected">
+                                <input type="radio" name="room" checked>
+                                <div class="room-info">
+                                    <div class="room-name">Shared Room (3 beds)</div>
+                                    <div class="room-desc">Most popular choice</div>
+                                </div>
+                                <span class="room-price">Rs. 8,000</span>
+                            </label>
+                            <label class="room-option">
+                                <input type="radio" name="room">
+                                <div class="room-info">
+                                    <div class="room-name">Twin Sharing (2 beds)</div>
+                                    <div class="room-desc">More privacy</div>
+                                </div>
+                                <span class="room-price">Rs. 10,000</span>
+                            </label>
+                            <label class="room-option">
+                                <input type="radio" name="room">
+                                <div class="room-info">
+                                    <div class="room-name">Single Room</div>
+                                    <div class="room-desc">Complete privacy</div>
+                                </div>
+                                <span class="room-price">Rs. 15,000</span>
+                            </label>
+                        </div>
+
+                        <button class="btn-custom btn-primary btn-lg w-100 mb-3 btn-animate" onclick="bookHostel()">
+                            <i class="bi bi-calendar-check"></i>
+                            Book Now
+                        </button>
+                        <button class="btn-custom btn-outline-primary w-100">
+                            <i class="bi bi-telephone"></i>
+                            Contact Owner
+                        </button>
+
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="bi bi-telephone"></i>
+                                <div>
+                                    <small class="text-muted d-block">Phone</small>
+                                    <strong>0300-1234567</strong>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="bi bi-whatsapp"></i>
+                                <div>
+                                    <small class="text-muted d-block">WhatsApp</small>
+                                    <strong>0300-1234567</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trust Score -->
+                    <div class="content-card trust-card">
+                        <div class="trust-header">
+                            <div class="trust-icon">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-1">Trust Score</h5>
+                                <p class="text-muted small mb-0">Verified by WorkNStay</p>
+                            </div>
+                        </div>
+
+                        <div class="trust-score-display">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Trust Level</span>
+                                <strong class="text-success">Excellent</strong>
+                            </div>
+                            <div class="trust-score-bar">
+                                <div class="trust-score-fill" style="width: 92%"></div>
+                            </div>
+                            <span class="text-muted small">92/100 Trust Score</span>
+                        </div>
+
+                        <div class="trust-breakdown">
+                            <div class="trust-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Identity Verified</span>
+                            </div>
+                            <div class="trust-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Physical Inspection Done</span>
+                            </div>
+                            <div class="trust-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>45+ Verified Reviews</span>
+                            </div>
+                            <div class="trust-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>No Fake Review Detected</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="location-card">
+                        <h5 class="mb-3"><i class="bi bi-geo-alt text-primary me-2"></i>Location</h5>
+                        <div class="map-preview">
+                            <i class="bi bi-map"></i>
+                        </div>
+                        <div class="text-center">
+                            <span class="distance-badge">
+                                <i class="bi bi-pin-map"></i>
+                                0.5 km from GTI Lahore
+                            </span>
+                        </div>
+                        <button class="btn-custom btn-ghost w-100 mt-3">
+                            <i class="bi bi-map"></i>
+                            Open in Google Maps
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function bookHostel() {
+            showToast('Booking Initiated!', 'Redirecting to booking confirmation...', 'success');
+            // In production, this would navigate to a booking flow
+        }
+
+        // Room option selection
+        document.querySelectorAll('.room-option').forEach(option => {
+            option.addEventListener('click', function () {
+                document.querySelectorAll('.room-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                this.querySelector('input').checked = true;
+
+                // Update price
+                const price = this.querySelector('.room-price').textContent;
+                document.querySelector('.price-value').textContent = price;
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find Hostels - WorkNStay AI - Verified hostels near TEVTA institutes">
+    <title>Find Hostels - WorkNStay AI</title>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <style>
+        body {
+            padding-top: 80px;
+        }
+
+        .hostels-hero {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e8f5f0 50%, #fef3c7 100%);
+            padding: 48px 0;
+            margin-bottom: 32px;
+        }
+
+        .hostels-hero-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hostels-hero-subtitle {
+            color: var(--gray-600);
+            margin-bottom: 24px;
+        }
+
+        .search-wrapper {
+            background: white;
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-input-group {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--gray-50);
+            border-radius: 12px;
+        }
+
+        .search-input-group i {
+            color: var(--gray-400);
+            font-size: 1.25rem;
+        }
+
+        .search-input-group input,
+        .search-input-group select {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-divider {
+            width: 1px;
+            background: var(--gray-200);
+            margin: 8px 0;
+        }
+
+        /* View Toggle */
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .view-toggle-btn {
+            padding: 10px 16px;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        .view-toggle-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .view-toggle-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .hostels-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            padding-bottom: 64px;
+        }
+
+        /* Filter Sidebar */
+        .filter-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--gray-100);
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .filter-clear {
+            font-size: 13px;
+            color: var(--primary);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .filter-group {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .filter-group:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .filter-group-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 12px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .filter-option label {
+            flex: 1;
+            font-size: 14px;
+            color: var(--gray-600);
+            cursor: pointer;
+        }
+
+        .filter-option .count {
+            font-size: 12px;
+            color: var(--gray-400);
+            background: var(--gray-100);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .price-range {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .price-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .price-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Hostels Grid */
+        .hostels-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .hostels-count {
+            color: var(--gray-600);
+        }
+
+        .hostels-count strong {
+            color: var(--gray-900);
+        }
+
+        .sort-select {
+            padding: 10px 32px 10px 14px;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 14px;
+            background: white url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") no-repeat right 10px center;
+            background-size: 16px;
+            cursor: pointer;
+        }
+
+        .hostels-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        /* Hostel Card */
+        .hostel-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--gray-100);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .hostel-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-4px);
+        }
+
+        .hostel-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--gray-200), var(--gray-300));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hostel-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            font-size: 3rem;
+            background: linear-gradient(135deg, #e8f5f0, #f0f9ff);
+        }
+
+        .hostel-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+        }
+
+        .hostel-favorite {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--gray-500);
+            transition: all 0.2s;
+        }
+
+        .hostel-favorite:hover,
+        .hostel-favorite.active {
+            background: var(--error);
+            color: white;
+        }
+
+        .hostel-content {
+            padding: 20px;
+        }
+
+        .hostel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .hostel-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin: 0;
+        }
+
+        .hostel-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+        }
+
+        .hostel-rating i {
+            color: var(--accent-gold);
+        }
+
+        .hostel-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gray-500);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .hostel-facilities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .facility-tag {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: var(--gray-100);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        .hostel-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .hostel-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .hostel-price small {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--gray-500);
+        }
+
+        .hostel-distance {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        /* Map View */
+        .map-container {
+            display: none;
+            height: 600px;
+            background: var(--gray-100);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .map-container.active {
+            display: block;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-500);
+        }
+
+        .map-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            color: var(--gray-400);
+        }
+
+        /* Mobile Filter Toggle */
+        .filter-toggle-btn {
+            display: none;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .hostels-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-sidebar {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1000;
+                background: rgba(0, 0, 0, 0.5);
+                padding: 20px;
+                overflow-y: auto;
+            }
+
+            .filter-sidebar.show {
+                display: block;
+            }
+
+            .filter-card {
+                max-width: 360px;
+                margin: 0 auto;
+            }
+
+            .filter-toggle-btn {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-wrapper {
+                flex-direction: column;
+            }
+
+            .search-divider {
+                width: 100%;
+                height: 1px;
+                margin: 0;
+            }
+
+            .hostels-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar-custom">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="index.html" class="navbar-brand-custom">
+                    <div class="logo-icon">
+                        <i class="bi bi-house-heart-fill"></i>
+                    </div>
+                    WorkNStay AI
+                </a>
+
+                <div class="d-none d-lg-flex align-items-center gap-2">
+                    <a href="index.html" class="nav-link-custom">Home</a>
+                    <a href="jobs.html" class="nav-link-custom">Find Jobs</a>
+                    <a href="hostels.html" class="nav-link-custom active">Find Hostels</a>
+                    <a href="dashboard.html" class="nav-link-custom">Dashboard</a>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <a href="dashboard.html" class="btn-custom btn-primary">
+                        <i class="bi bi-grid"></i>
+                        Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hostels Hero -->
+    <section class="hostels-hero">
+        <div class="container">
+            <h1 class="hostels-hero-title">Find Safe & Verified Hostels</h1>
+            <p class="hostels-hero-subtitle">Affordable accommodations near your TEVTA institute with real student
+                reviews</p>
+
+            <div class="search-wrapper">
+                <div class="search-input-group">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search hostel name or area">
+                </div>
+                <div class="search-divider"></div>
+                <div class="search-input-group">
+                    <i class="bi bi-mortarboard"></i>
+                    <select>
+                        <option value="">Near Institute</option>
+                        <option value="gti-lahore">GTI Lahore</option>
+                        <option value="gti-faisalabad">GTI Faisalabad</option>
+                        <option value="gti-rawalpindi">GTI Rawalpindi</option>
+                        <option value="gti-multan">GTI Multan</option>
+                    </select>
+                </div>
+                <button class="btn-custom btn-primary btn-lg">
+                    <i class="bi bi-search"></i>
+                    Search
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hostels Content -->
+    <section class="container">
+        <button class="btn-custom btn-outline-primary filter-toggle-btn" onclick="toggleFilters()">
+            <i class="bi bi-funnel"></i>
+            Show Filters
+        </button>
+
+        <div class="hostels-container">
+            <!-- Filter Sidebar -->
+            <aside class="filter-sidebar" id="filterSidebar">
+                <div class="filter-card">
+                    <div class="filter-header">
+                        <span class="filter-title">Filters</span>
+                        <button class="filter-clear">Clear All</button>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-group-title">Price Range (Monthly)</div>
+                        <div class="price-range">
+                            <input type="number" class="price-input" placeholder="Min" value="5000">
+                            <span>-</span>
+                            <input type="number" class="price-input" placeholder="Max" value="15000">
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-group-title">Distance from Institute</div>
+                        <label class="filter-option">
+                            <input type="checkbox" checked>
+                            <span>Within 1 km</span>
+                            <span class="count">24</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>1-3 km</span>
+                            <span class="count">38</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>3-5 km</span>
+                            <span class="count">15</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>5+ km</span>
+                            <span class="count">8</span>
+                        </label>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-group-title">Room Type</div>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Single Room</span>
+                            <span class="count">18</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" checked>
+                            <span>Shared Room (2-3)</span>
+                            <span class="count">42</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Dormitory (4+)</span>
+                            <span class="count">25</span>
+                        </label>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-group-title">Facilities</div>
+                        <label class="filter-option">
+                            <input type="checkbox" checked>
+                            <span>WiFi</span>
+                            <span class="count">72</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>AC Rooms</span>
+                            <span class="count">28</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Mess/Kitchen</span>
+                            <span class="count">56</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Laundry</span>
+                            <span class="count">34</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>Parking</span>
+                            <span class="count">41</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>24/7 Security</span>
+                            <span class="count">65</span>
+                        </label>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-group-title">Rating</div>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>4.5+ ⭐</span>
+                            <span class="count">22</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>4.0+ ⭐</span>
+                            <span class="count">45</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            <span>3.5+ ⭐</span>
+                            <span class="count">68</span>
+                        </label>
+                    </div>
+
+                    <button class="btn-custom btn-primary w-100 d-lg-none" onclick="toggleFilters()">
+                        Apply Filters
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Hostels List -->
+            <div class="hostels-list">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                    <div class="view-toggle">
+                        <button class="view-toggle-btn active" onclick="setView('grid')">
+                            <i class="bi bi-grid-3x2"></i>
+                            Grid
+                        </button>
+                        <button class="view-toggle-btn" onclick="setView('map')">
+                            <i class="bi bi-map"></i>
+                            Map
+                        </button>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="hostels-count"><strong>85</strong> hostels found</span>
+                        <select class="sort-select">
+                            <option>Recommended</option>
+                            <option>Nearest First</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Highest Rated</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Grid View -->
+                <div class="hostels-grid" id="gridView">
+                    <!-- Hostel Card 1 -->
+                    <div class="hostel-card" onclick="window.location='hostel-detail.html'">
+                        <div class="hostel-image">
+                            <div class="hostel-image-placeholder">
+                                <i class="bi bi-house-heart"></i>
+                            </div>
+                            <span class="hostel-badge badge-custom badge-verified">
+                                <i class="bi bi-patch-check-fill"></i>
+                                Verified
+                            </span>
+                            <button class="hostel-favorite" onclick="event.stopPropagation(); toggleFavorite(this)">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                        </div>
+                        <div class="hostel-content">
+                            <div class="hostel-header">
+                                <h5 class="hostel-name">Green View Student Hostel</h5>
+                                <span class="hostel-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    4.8
+                                </span>
+                            </div>
+                            <p class="hostel-location">
+                                <i class="bi bi-geo-alt"></i>
+                                Model Town, Lahore
+                            </p>
+                            <div class="hostel-facilities">
+                                <span class="facility-tag"><i class="bi bi-wifi"></i> WiFi</span>
+                                <span class="facility-tag"><i class="bi bi-shield-check"></i> Security</span>
+                                <span class="facility-tag"><i class="bi bi-cup-hot"></i> Mess</span>
+                                <span class="facility-tag">+3</span>
+                            </div>
+                            <div class="hostel-footer">
+                                <span class="hostel-price">
+                                    Rs. 8,000<small>/month</small>
+                                </span>
+                                <span class="hostel-distance">
+                                    <i class="bi bi-pin-map"></i>
+                                    0.5 km from GTI
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hostel Card 2 -->
+                    <div class="hostel-card">
+                        <div class="hostel-image">
+                            <div class="hostel-image-placeholder">
+                                <i class="bi bi-house-heart"></i>
+                            </div>
+                            <span class="hostel-badge badge-custom badge-vip">
+                                <i class="bi bi-star-fill"></i>
+                                Premium
+                            </span>
+                            <button class="hostel-favorite active"
+                                onclick="event.stopPropagation(); toggleFavorite(this)">
+                                <i class="bi bi-heart-fill"></i>
+                            </button>
+                        </div>
+                        <div class="hostel-content">
+                            <div class="hostel-header">
+                                <h5 class="hostel-name">Prime Residency</h5>
+                                <span class="hostel-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    4.9
+                                </span>
+                            </div>
+                            <p class="hostel-location">
+                                <i class="bi bi-geo-alt"></i>
+                                Gulberg, Lahore
+                            </p>
+                            <div class="hostel-facilities">
+                                <span class="facility-tag"><i class="bi bi-wifi"></i> WiFi</span>
+                                <span class="facility-tag"><i class="bi bi-snow"></i> AC</span>
+                                <span class="facility-tag"><i class="bi bi-cup-hot"></i> Mess</span>
+                                <span class="facility-tag">+5</span>
+                            </div>
+                            <div class="hostel-footer">
+                                <span class="hostel-price">
+                                    Rs. 12,000<small>/month</small>
+                                </span>
+                                <span class="hostel-distance">
+                                    <i class="bi bi-pin-map"></i>
+                                    1.2 km from GTI
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hostel Card 3 -->
+                    <div class="hostel-card">
+                        <div class="hostel-image">
+                            <div class="hostel-image-placeholder">
+                                <i class="bi bi-house-heart"></i>
+                            </div>
+                            <span class="hostel-badge badge-custom badge-verified">
+                                <i class="bi bi-patch-check-fill"></i>
+                                Verified
+                            </span>
+                            <button class="hostel-favorite" onclick="event.stopPropagation(); toggleFavorite(this)">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                        </div>
+                        <div class="hostel-content">
+                            <div class="hostel-header">
+                                <h5 class="hostel-name">Student Haven</h5>
+                                <span class="hostel-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    4.6
+                                </span>
+                            </div>
+                            <p class="hostel-location">
+                                <i class="bi bi-geo-alt"></i>
+                                Johar Town, Lahore
+                            </p>
+                            <div class="hostel-facilities">
+                                <span class="facility-tag"><i class="bi bi-wifi"></i> WiFi</span>
+                                <span class="facility-tag"><i class="bi bi-shield-check"></i> Security</span>
+                                <span class="facility-tag"><i class="bi bi-p-circle"></i> Parking</span>
+                                <span class="facility-tag">+2</span>
+                            </div>
+                            <div class="hostel-footer">
+                                <span class="hostel-price">
+                                    Rs. 7,500<small>/month</small>
+                                </span>
+                                <span class="hostel-distance">
+                                    <i class="bi bi-pin-map"></i>
+                                    0.8 km from GTI
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hostel Card 4 -->
+                    <div class="hostel-card">
+                        <div class="hostel-image">
+                            <div class="hostel-image-placeholder">
+                                <i class="bi bi-house-heart"></i>
+                            </div>
+                            <button class="hostel-favorite" onclick="event.stopPropagation(); toggleFavorite(this)">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                        </div>
+                        <div class="hostel-content">
+                            <div class="hostel-header">
+                                <h5 class="hostel-name">Al-Madina Hostel</h5>
+                                <span class="hostel-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    4.3
+                                </span>
+                            </div>
+                            <p class="hostel-location">
+                                <i class="bi bi-geo-alt"></i>
+                                Iqbal Town, Lahore
+                            </p>
+                            <div class="hostel-facilities">
+                                <span class="facility-tag"><i class="bi bi-wifi"></i> WiFi</span>
+                                <span class="facility-tag"><i class="bi bi-cup-hot"></i> Mess</span>
+                                <span class="facility-tag">+1</span>
+                            </div>
+                            <div class="hostel-footer">
+                                <span class="hostel-price">
+                                    Rs. 6,000<small>/month</small>
+                                </span>
+                                <span class="hostel-distance">
+                                    <i class="bi bi-pin-map"></i>
+                                    2.1 km from GTI
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hostel Card 5 -->
+                    <div class="hostel-card">
+                        <div class="hostel-image">
+                            <div class="hostel-image-placeholder">
+                                <i class="bi bi-house-heart"></i>
+                            </div>
+                            <span class="hostel-badge badge-custom badge-verified">
+                                <i class="bi bi-patch-check-fill"></i>
+                                Verified
+                            </span>
+                            <button class="hostel-favorite" onclick="event.stopPropagation(); toggleFavorite(this)">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                        </div>
+                        <div class="hostel-content">
+                            <div class="hostel-header">
+                                <h5 class="hostel-name">Tech City Hostel</h5>
+                                <span class="hostel-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    4.7
+                                </span>
+                            </div>
+                            <p class="hostel-location">
+                                <i class="bi bi-geo-alt"></i>
+                                Township, Lahore
+                            </p>
+                            <div class="hostel-facilities">
+                                <span class="facility-tag"><i class="bi bi-wifi"></i> WiFi</span>
+                                <span class="facility-tag"><i class="bi bi-snow"></i> AC</span>
+                                <span class="facility-tag"><i class="bi bi-shield-check"></i> Security</span>
+                                <span class="facility-tag">+4</span>
+                            </div>
+                            <div class="hostel-footer">
+                                <span class="hostel-price">
+                                    Rs. 9,500<small>/month</small>
+                                </span>
+                                <span class="hostel-distance">
+                                    <i class="bi bi-pin-map"></i>
+                                    1.5 km from GTI
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hostel Card 6 -->
+                    <div class="hostel-card">
+                        <div class="hostel-image">
+                            <div class="hostel-image-placeholder">
+                                <i class="bi bi-house-heart"></i>
+                            </div>
+                            <button class="hostel-favorite" onclick="event.stopPropagation(); toggleFavorite(this)">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                        </div>
+                        <div class="hostel-content">
+                            <div class="hostel-header">
+                                <h5 class="hostel-name">Budget Stay</h5>
+                                <span class="hostel-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    4.0
+                                </span>
+                            </div>
+                            <p class="hostel-location">
+                                <i class="bi bi-geo-alt"></i>
+                                Shalimar, Lahore
+                            </p>
+                            <div class="hostel-facilities">
+                                <span class="facility-tag"><i class="bi bi-wifi"></i> WiFi</span>
+                                <span class="facility-tag"><i class="bi bi-cup-hot"></i> Mess</span>
+                            </div>
+                            <div class="hostel-footer">
+                                <span class="hostel-price">
+                                    Rs. 5,500<small>/month</small>
+                                </span>
+                                <span class="hostel-distance">
+                                    <i class="bi bi-pin-map"></i>
+                                    3.2 km from GTI
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map View -->
+                <div class="map-container" id="mapView">
+                    <div class="map-placeholder">
+                        <i class="bi bi-map"></i>
+                        <h4>Map View</h4>
+                        <p>Interactive map will display hostel locations</p>
+                        <p class="text-muted small">Google Maps integration coming soon</p>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center mt-5">
+                    <div class="pagination-custom">
+                        <button class="page-btn"><i class="bi bi-chevron-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">4</button>
+                        <button class="page-btn">...</button>
+                        <button class="page-btn">8</button>
+                        <button class="page-btn"><i class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function toggleFilters() {
+            document.getElementById('filterSidebar').classList.toggle('show');
+        }
+
+        function setView(view) {
+            const gridView = document.getElementById('gridView');
+            const mapView = document.getElementById('mapView');
+            const buttons = document.querySelectorAll('.view-toggle-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            if (view === 'grid') {
+                gridView.style.display = 'grid';
+                mapView.classList.remove('active');
+                buttons[0].classList.add('active');
+            } else {
+                gridView.style.display = 'none';
+                mapView.classList.add('active');
+                buttons[1].classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>
